@@ -1,20 +1,18 @@
 const Allposts = async () => {
-    try {
+  
       const res = await fetch('https://openapi.programming-hero.com/api/retro-forum/posts');
       const data = await res.json();
       const posts = data.posts; 
       console.log(posts);
       displayAllPosts(posts);
-    } catch (error) {
-      console.error('Error fetching posts:', error);
-    }
+    
   };
   
   Allposts();
   
   const displayAllPosts = (posts) => {
     const allPosts = document.getElementById('all-posts');
-    allPosts.innerHTML = ''; 
+    allPosts.innerHTML = '';
   
     posts.forEach((post) => {
       const postCard = document.createElement('div');
@@ -53,3 +51,43 @@ const Allposts = async () => {
     });
   };
   
+
+const LatestPosts = async () => {
+ 
+    const res = await fetch('https://openapi.programming-hero.com/api/retro-forum/latest-posts');
+    const data = await res.json();
+
+      displayAllLatestPosts(data);
+   
+};
+
+LatestPosts();
+
+const displayAllLatestPosts = (posts) => {
+  const allLatestPostsContainer = document.getElementById('latest-posts');
+
+  posts.forEach((post) => {
+    const postCard = document.createElement('div');
+    postCard.classList = 'flex justify-center items-center py-10';
+    postCard.innerHTML = `
+      <div class="bg-white rounded-lg shadow-lg p-6">
+        <img class="h-32 bg-gray-200 rounded mb-4" src="${post.cover_image}" alt="Post Cover" />
+        <p class="text-sm text-gray-500 mb-2">
+          <i class="far fa-calendar-alt"></i> ${post.author.posted_date }
+        </p>
+        <h2 class="font-bold text-lg mb-2">${post.title}</h2>
+        <p class="text-gray-600 text-sm mb-4">${post.description}</p>
+        <div class="flex items-center gap-3">
+          <img src="${post.profile_image}" alt="Author" class="w-10 h-10 rounded-full" />
+          <div>
+            <p class="font-medium">${post.author.name }</p>
+            <p class="text-sm text-gray-500">${post.author.designation  }</p>
+          </div>
+        </div>
+      </div>
+    `;
+    allLatestPostsContainer.appendChild(postCard);
+  });
+};
+
+
