@@ -70,6 +70,7 @@ const clickIcon = (post) => {
   readCount++;
   const countDisplay = document.getElementById('count');
   countDisplay.textContent = `Mark as read(${readCount})`;
+  countDisplay.style.color='green'
   
   const showPosts = document.getElementById('show-posts');
   
