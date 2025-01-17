@@ -16,7 +16,7 @@ const Allposts = async () => {
   
     posts.forEach((post) => {
       const postCard = document.createElement('div');
-      postCard.className = 'post-card'; 
+      postCard.className = 'post-card';
       postCard.innerHTML = `
         <div class="max-w-sm mx-auto p-4 rounded-lg shadow-md mt-5">
           <div class="flex items-center space-x-2">
@@ -37,20 +37,22 @@ const Allposts = async () => {
                 <span>${post.view_count}</span>
               </span>
             </div>
-            <div class="flex items-center space-x-1">
-              <img src="images/Vector (2).png" alt="Icon" class="w-4 h-4" />
-              <span>${post.posted_time}</span>
-            </div>
             <div>
-              <img src="images/email 1.png" alt="Icon" class="w-5 h-5 text-green-600" />
-            </div>
+            <img src="images/email 1.png" alt="Icon" class="w-5 h-5 text-green-600 click-icon" />
+          </div>
           </div>
         </div>
       `;
       allPosts.appendChild(postCard);
+  
+      // Attach the click event to the icon
+     ;
+      const icon = postCard.querySelector('.click-icon');
+    icon.addEventListener('click', () => clickIcon(post));
     });
   };
-
+  
+  
 // Search posts
 const searchBtn = () => {
   const searchfield = document.getElementById('search-field');
@@ -61,6 +63,48 @@ const searchBtn = () => {
   const scrollView=document.getElementById('all-posts')
   scrollView.scrollIntoView({behavior:'smooth'})
 };
+
+//click and send other section
+let readCount = 0;
+const clickIcon = (post) => {
+  readCount++;
+  const countDisplay = document.getElementById('count');
+  countDisplay.textContent = `Mark as read(${readCount})`;
+  
+  const showPosts = document.getElementById('show-posts');
+  
+ 
+  const postDiv = document.createElement('div');
+  postDiv.classList.add('post-container', 'p-6', 'h-auto');
+  
+  
+  postDiv.innerHTML = `
+    <div class="ml-14 text-3xl font-bold">
+      
+    </div>
+    <div class="max-w-md mx-auto space-y-4">
+      <div class="flex items-center justify-between bg-white p-4 rounded-lg shadow">
+        <div class="text-lg font-semibold text-gray-900">
+          ${post.title}
+        </div>
+        <div class="flex items-center space-x-4">
+          <span class="flex items-center space-x-1">
+            <img src="images/Vector (1).png" alt="Icon" class="w-4 h-4" />
+            <span>${post.view_count}</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  `;
+  
+  
+  showPosts.appendChild(postDiv);
+};
+
+
+
+
+
   
 
 const LatestPosts = async () => {
