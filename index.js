@@ -1,12 +1,12 @@
+
+
 const Allposts = async () => {
-  
-      const res = await fetch('https://openapi.programming-hero.com/api/retro-forum/posts');
-      const data = await res.json();
-      const posts = data.posts; 
-      console.log(posts);
-      displayAllPosts(posts);
-    
-  };
+  const res = await fetch('https://openapi.programming-hero.com/api/retro-forum/posts');
+  const data = await res.json();
+  Posts = data.posts; 
+  console.log(Posts);
+  displayAllPosts(Posts);
+};
   
   Allposts();
   
@@ -50,6 +50,17 @@ const Allposts = async () => {
       allPosts.appendChild(postCard);
     });
   };
+
+// Search posts
+const searchBtn = () => {
+  const searchfield = document.getElementById('search-field');
+  const searchInput = searchfield.value.trim().toLowerCase();
+  const filterPosts = Posts.filter((post) => post.category.toLowerCase() === searchInput);
+  displayAllPosts(filterPosts); 
+
+  const scrollView=document.getElementById('all-posts')
+  scrollView.scrollIntoView({behavior:'smooth'})
+};
   
 
 const LatestPosts = async () => {
